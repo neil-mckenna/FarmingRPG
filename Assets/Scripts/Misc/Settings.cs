@@ -1,7 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Settings
 {
+    // Player Movement
+    public const float runningSpeed = 5.333f;
+    public const float walkingSpeed = 2.666f;
 
     // Player Animations Parameters
     public static int xInput;
@@ -34,8 +39,15 @@ public static class Settings
     public static int idleRight;
 
     // static constructor
-    static Settings()
-    {
+    static Settings(){
+        
+
+    
+    
+        
+    
+
+        // Player Animation Parameters
         xInput = Animator.StringToHash("xInput");
         yInput = Animator.StringToHash("yInput");
         isWalking = Animator.StringToHash("isWalking");
@@ -67,10 +79,8 @@ public static class Settings
         idleDown = Animator.StringToHash("idleDown");
         idleLeft = Animator.StringToHash("idleLeft");
         idleRight = Animator.StringToHash("idleRight");
-        
-
-    }
-
-
+    
+    
+    } 
     
 }
