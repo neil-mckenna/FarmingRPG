@@ -26,6 +26,7 @@ public enum ItemType
     Reaping_tool,
     Collecting_tool,
     Reapable_scenery,
+    Furniture,
     none,
     count,
 
