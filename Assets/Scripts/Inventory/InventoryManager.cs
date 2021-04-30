@@ -111,9 +111,6 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 
     }
 
-
-
-
     /// <summary>
     ///  Add an item to the inventory list
     /// </summary>
@@ -211,6 +208,27 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 
 
     }
+
+    public void SwapInventoryItems(InventoryLocation inventoryLocation, int fromItem, int toItem)
+    {
+        Debug.Log("called swap");
+        // if fromItem and toItemIndex are with in the bounds of the list, not the same , and greater than or equal to zero
+        if(fromItem < inventoryLists[(int)inventoryLocation].Count && toItem < inventoryLists[(int)inventoryLocation].Count
+         && fromItem != toItem && fromItem >= 0 && toItem >= 0)
+         {
+             InventoryItem fromInventoryItem = inventoryLists[(int)inventoryLocation][fromItem];
+             InventoryItem toInventoryItem = inventoryLists[(int)inventoryLocation][toItem];
+
+             inventoryLists[(int)inventoryLocation][toItem] = fromInventoryItem;
+             inventoryLists[(int)inventoryLocation][fromItem] = toInventoryItem;
+
+             // Send date that inventory was updated
+             EventHandler.CallInventoryUpdatedEvent(inventoryLocation, inventoryLists[(int)inventoryLocation]);
+
+         }
+
+    }
+
 
     /// <summary>
     ///    Debugging inventory
