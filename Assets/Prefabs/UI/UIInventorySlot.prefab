@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -312,9 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e991db66c4d562aa16e2f59821d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   inventorySlotHightlight: {fileID: 4356528488560137590}
   inventorySlotImage: {fileID: 4356528489705726504}
   textMeshProUGUI: {fileID: 4356528489246318644}
+  inventoryBar: {fileID: 0}
   itemDetails:
     itemCode: 0
     itemType: 0
@@ -328,4 +330,5 @@ MonoBehaviour:
     canBeDropped: 0
     canBeEaten: 0
     canBeCarried: 0
+  itemPrefab: {fileID: 1301239352558406924, guid: d916322dd9596c361bd5de1892068040, type: 3}
   itemQuantity: 0
