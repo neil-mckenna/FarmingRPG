@@ -29,6 +29,10 @@ public class Player : SingletonMonobehaviour<Player>
     private bool isPickingDown;
     private ToolEffect toolEffect = ToolEffect.none;
 
+
+    // To retrive player position in 2D space 
+    private Camera mainCamera;
+
     //
     private Rigidbody2D rigidbody2D;
 #pragma warning disable 414    
@@ -48,6 +52,9 @@ public class Player : SingletonMonobehaviour<Player>
         base.Awake();
 
         rigidbody2D = GetComponent<Rigidbody2D>();
+
+        // reference the camera
+        mainCamera = Camera.main;
         
     }
 
@@ -171,6 +178,13 @@ public class Player : SingletonMonobehaviour<Player>
             isIdle = false;
             movementSpeed = Settings.runningSpeed;
         }
+    }
+
+    public Vector3 GetPlayerViewportPosition()
+    {
+        // Vector 3 viewport postiion for player((0,0) viewport bottom left, (1,1) viewport top right)
+        return mainCamera.WorldToViewportPoint(transform.position);
+
     }
 
 
