@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 {
     private Dictionary<int, ItemDetails> itemDetailsDictionary;
+    private int[] selectedInventoryItem; // the index of the array is the inventorylist, and the value is the item code
 
     public List<InventoryItem>[] inventoryLists;
 
@@ -16,11 +17,20 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
     {
         base.Awake();
 
-        // Create inveoty lists
+        // Create inventory lists
         CreateInventoryLists();
 
         // Create item details dictionary
         CreateItemsDetailsDictionary();
+
+        // Initialise selected inventory item array
+        selectedInventoryItem = new int[(int)InventoryLocation.count];
+
+        for(int i = 0; i < selectedInventoryItem.Length; i++)
+        {
+            selectedInventoryItem[i] = -1;
+        }
+
 
     }
 
@@ -265,9 +275,24 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 
         return itemTypeDescription;
 
+    }
+
+    /// <summary>
+    ///   Set the selected inventoryitem for inventoryLocation
+    /// </summary>
+    public void SetSelectedInventoryItem(InventoryLocation inventoryLocation, int itemCode)
+    {
+        selectedInventoryItem[(int)inventoryLocation] = itemCode;
 
     }
 
+    /// <summary>
+    ///   Clears the selected inventoryitem for inventoryLocation
+    /// </summary>
+    public void ClearSelectedInventoryItem(InventoryLocation inventoryLocation)
+    {
+        selectedInventoryItem[(int)inventoryLocation] = -1;
+    }
 
 
 

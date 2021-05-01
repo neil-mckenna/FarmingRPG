@@ -40,20 +40,7 @@ public class UIInventoryBar : MonoBehaviour
         SwitchInventoryBarPosition();         
     }
 
-    private void ClearInventorySlots()
-    {
-        if(inventorySlots.Length > 0)
-        {
-            // loop through inventory slots
-            for(int i = 0; i < inventorySlots.Length; i++)
-            {
-                inventorySlots[i].inventorySlotImage.sprite = blank16x16sprite;
-                inventorySlots[i].textMeshProUGUI.text = "";
-                inventorySlots[i].itemDetails = null;
-                inventorySlots[i].itemQuantity = 0;
-            }
-        }
-    }
+    
 
     private void InventoryUpdated(InventoryLocation inventoryLocation, List<InventoryItem> inventoryList)
     {
@@ -80,6 +67,7 @@ public class UIInventoryBar : MonoBehaviour
                             inventorySlots[i].textMeshProUGUI.text = inventoryList[i].itemQuantity.ToString();
                             inventorySlots[i].itemDetails = itemDetails;
                             inventorySlots[i].itemQuantity = inventoryList[i].itemQuantity;
+                            SetHighlightedInventorySlots(i);
 
                         }
 
@@ -123,15 +111,74 @@ public class UIInventoryBar : MonoBehaviour
             isInventoryBarPositionBottom = false;
 
         }
-
-
-
-
-
-
-
-
     }
+
+    
+
+    public void SetHighlightedInventorySlots()
+    {
+        if(inventorySlots.Length > 0)
+        {
+            for(int i = 0; i < inventorySlots.Length; i++)
+            {
+                SetHighlightedInventorySlots(i);
+            }    
+        }
+    }
+
+    // overloaded 
+    public void SetHighlightedInventorySlots(int itemPosition)
+    {
+        if(inventorySlots.Length > 0 && inventorySlots[itemPosition].itemDetails != null)
+        {
+            if(inventorySlots[itemPosition].isSelected)
+            {
+                inventorySlots[itemPosition].inventorySlotHightlight.color = new Color(1f, 1f, 1f , 1f);
+
+                // Update inventory to show item as selected
+                InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.player, inventorySlots[itemPosition].itemDetails.itemCode);
+            }
+        }
+    }
+
+    private void ClearInventorySlots()
+    {
+        if(inventorySlots.Length > 0)
+        {
+            // loop through inventory slots
+            for(int i = 0; i < inventorySlots.Length; i++)
+            {
+                inventorySlots[i].inventorySlotImage.sprite = blank16x16sprite;
+                inventorySlots[i].textMeshProUGUI.text = "";
+                inventorySlots[i].itemDetails = null;
+                inventorySlots[i].itemQuantity = 0;
+
+                SetHighlightedInventorySlots(i);
+            }
+        }
+    }
+
+    
+
+    public void ClearHighlightOnInventorySlots()
+    {
+        if(inventorySlots.Length > 0)
+        {
+            // loop through inventory slotsand clear the highlighting
+            for(int i = 0; i < inventorySlots.Length; i++)
+            {
+                if(inventorySlots[i].isSelected)
+                {
+                    inventorySlots[i].isSelected = false;
+                    inventorySlots[i].inventorySlotHightlight.color = new Color(0f, 0f, 0f, 0f);
+                    // Update inventory to show item is not selected
+                    InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.player);
+                }
+            }
+        }
+    }
+
+    
 
 
 }

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Camera mainCamera;
     private Canvas parentCanvas;
@@ -19,7 +19,7 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     [SerializeField] private UIInventoryBar inventoryBar = null;
     [SerializeField] private GameObject inventoryTextBoxPrefab = null;
-
+    [HideInInspector] public bool isSelected = false; 
     [HideInInspector] public ItemDetails itemDetails;
     [SerializeField] private GameObject itemPrefab = null;
     [HideInInspector] public int itemQuantity;
@@ -46,7 +46,7 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// </summary>
     private void DropSelectedItemAtMousePosition()
     {
-        if(itemDetails != null)
+        if(itemDetails != null && isSelected)
         {
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(
                 Input.mousePosition.x,
@@ -59,7 +59,12 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             item.ItemCode = itemDetails.itemCode;
 
             // Remove item from players inventory
-            InventoryManager.Instance.RemoveItem(InventoryLocation.player, item.ItemCode); 
+            InventoryManager.Instance.RemoveItem(InventoryLocation.player, item.ItemCode);
+
+            if(InventoryManager.Instance.FindItemInInventory(InventoryLocation.player, item.ItemCode) == -1)
+            {
+                ClearSelectedItem();
+            } 
 
         }
     }
@@ -77,6 +82,8 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Get image for dragged item
             Image draggedItemImage = draggedItem.GetComponentInChildren<Image>();
             draggedItemImage.sprite = inventorySlotImage.sprite;
+
+            SetSelectedItem();
 
         }
 
@@ -111,6 +118,9 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 DestroyInventoryTextBox();
 
+                // Clear selected item
+                ClearSelectedItem();
+
              }
              // else attempt to drop item of it can be dropped
              else
@@ -124,10 +134,7 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
              // Enable player input
              Player.Instance.EnablePlayerInput();
-
         }
-
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -177,6 +184,56 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Destroy(inventoryBar.inventoryTextBoxGameObject);
         }
 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            // if selected then deselected
+            if(isSelected == true)
+            {
+                ClearSelectedItem();
+            }
+            else
+            {
+                if(itemQuantity > 0)
+                {
+                    SetSelectedItem();
+                }
+            }
+        }
+    }
+
+    
+
+
+    /// <summary>
+    /// Sets this inventory slot item to be selected
+    /// </summary>
+    public void SetSelectedItem()
+    {
+        // Clear currently highlighted items
+
+        inventoryBar.ClearHighlightOnInventorySlots();
+        
+        isSelected = true;
+
+        inventoryBar.SetHighlightedInventorySlots();
+
+        InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.player, itemDetails.itemCode);
+
+    }
+
+    public void ClearSelectedItem()
+    {
+        // Clear currently highlighted items
+        inventoryBar.ClearHighlightOnInventorySlots();
+
+        isSelected = false;
+
+        // set no item select in inventory
+        InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.player);
     }
 
     
