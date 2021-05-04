@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : SingletonMonobehaviour<Player>
 {
+    public AnimationOverrides animationOverrides;
+
     // Movement Parameters
     private float xInput;
     private float yInput;
@@ -38,7 +40,17 @@ public class Player : SingletonMonobehaviour<Player>
 #pragma warning disable 414    
     private Direction playerDirection;
 #pragma warning restore 414
+
+    public List<CharacterAttribute> characterAttributeCustomList;
     private float movementSpeed;
+
+    [Tooltip("Should be populated in the prefab with the equipped item sprite renderer")]
+    [SerializeField] private SpriteRenderer equippedItemSpriteRenderer = null;
+
+    // Player attributes that can be swapped
+    private CharacterAttribute armsCharacterAttribute;
+    private CharacterAttribute toolCharacterAttribute;
+
     private bool _playerInputIsDisabled = false;
 
     public bool PlayerInputIsDisabled
@@ -52,6 +64,14 @@ public class Player : SingletonMonobehaviour<Player>
         base.Awake();
 
         rigidbody2D = GetComponent<Rigidbody2D>();
+
+        animationOverrides = GetComponentInChildren<AnimationOverrides>();
+
+        // Initialise character attribute list
+        characterAttributeCustomList = new List<CharacterAttribute>();
+
+        // Initialise swappable character attributes
+        armsCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.arms, PartVariantColour.none, PartVariantType.none);
 
         // reference the camera
         mainCamera = Camera.main;
@@ -79,11 +99,12 @@ public class Player : SingletonMonobehaviour<Player>
                 false, false, false, false);
 
         }
-
-        
-
-
         #endregion
+
+        if(animationOverrides == null)
+        {
+            Debug.Log("no animation controller");
+        }
         
     }
 
@@ -99,6 +120,40 @@ public class Player : SingletonMonobehaviour<Player>
         Vector2 move = new Vector2(xInput * movementSpeed * Time.deltaTime, yInput * movementSpeed * Time.deltaTime);
 
         rigidbody2D.MovePosition(rigidbody2D.position + move);
+    }
+
+    public void ShowCarriedItem(int itemCode)
+    {
+        ItemDetails itemDetails = InventoryManager.Instance.GetItemDetails(itemCode);
+
+        if(itemDetails != null)
+        {
+            equippedItemSpriteRenderer.sprite = itemDetails.itemSprite;
+            equippedItemSpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+
+            // Apply 'carry' character arms customisation
+            armsCharacterAttribute.partVariantType = PartVariantType.carry;
+            characterAttributeCustomList.Clear();
+            characterAttributeCustomList.Add(armsCharacterAttribute);
+            animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomList);
+
+            isCarrying = true;
+        }
+    }
+
+    public void ClearCarriedItem()
+    {
+        equippedItemSpriteRenderer.sprite = null;
+        equippedItemSpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+
+        // Apply 'carry' character arms customisation
+        armsCharacterAttribute.partVariantType = PartVariantType.none;
+        characterAttributeCustomList.Clear();
+        characterAttributeCustomList.Add(armsCharacterAttribute);
+        animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomList);
+
+        isCarrying = false;
+        
     }
 
     private void ResetAnimationTriggers()
