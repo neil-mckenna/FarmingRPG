@@ -25,6 +25,22 @@ public class TimeManager : SingletonMonobehaviour<TimeManager>
         if(!gameClockPaused)
         {
             GameTick();
+
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                TestAdvanceGameDay();
+            }
+
+            if(Input.GetKeyDown(KeyCode.K))
+            {
+                TestAdvanceGameTime();
+            }
+
+
+
+
+
+
         }
 
 
@@ -75,6 +91,12 @@ public class TimeManager : SingletonMonobehaviour<TimeManager>
 
                             gameYear++;
 
+                            // testing REMOVE LATER
+                            if(gameYear > 9999)
+                            {
+                                gameYear = 1;
+                            }
+
                             EventHandler.CallAdvanceGameYearEvent(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
                         }
 
@@ -89,8 +111,8 @@ public class TimeManager : SingletonMonobehaviour<TimeManager>
             }
 
             EventHandler.CallAdvanceGameMinuteEvent(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
-            Debug.LogWarning("Game Year: " + gameYear + "   Game Season: " + gameSeason + "     Game Day" + gameDay +
-            "   Day of the Week: " + gameDayOfWeek + "     Hour: " + gameHour + "  Minute: " + gameMinute + "   Second: " + gameSecond);
+            //Debug.LogWarning("Game Year: " + gameYear + "   Game Season: " + gameSeason + "     Game Day" + gameDay +
+            //"   Day of the Week: " + gameDayOfWeek + "     Hour: " + gameHour + "  Minute: " + gameMinute + "   Second: " + gameSecond);
 
         }
         // Call to advance second if necessary
@@ -123,6 +145,30 @@ public class TimeManager : SingletonMonobehaviour<TimeManager>
                 return "";
 
         }
+    }
+
+    /// <summary>
+    ///  Test game time adavncement TODO REMOVE
+    /// </summary>
+    public void TestAdvanceGameTime()
+    {
+        for(int i = 0; i < 60; i++)
+        {
+            UpdateGameSecond();
+        }
+
+    }
+
+    /// <summary>
+    ///  Test game time adavncement TODO REMOVE
+    /// </summary>
+    public void TestAdvanceGameDay()
+    {
+        for(int i = 0; i < 86400; i++)
+        {
+            UpdateGameSecond();
+        }
+
     }
 
 
