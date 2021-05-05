@@ -548,7 +548,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: -526306901
   m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingOrder: 0
 --- !u!50 &191326300
 Rigidbody2D:
   serializedVersion: 4
@@ -2686,7 +2686,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.439427, g: 0.7735849, b: 0.3539516, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
