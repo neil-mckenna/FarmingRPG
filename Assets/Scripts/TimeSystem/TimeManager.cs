@@ -26,24 +26,7 @@ public class TimeManager : SingletonMonobehaviour<TimeManager>
         {
             GameTick();
 
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                TestAdvanceGameDay();
-            }
-
-            if(Input.GetKeyDown(KeyCode.K))
-            {
-                TestAdvanceGameTime();
-            }
-
-
-
-
-
-
         }
-
-
     }
 
     private void GameTick()

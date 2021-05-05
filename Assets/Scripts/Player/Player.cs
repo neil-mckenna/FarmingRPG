@@ -101,10 +101,7 @@ public class Player : SingletonMonobehaviour<Player>
         }
         #endregion
 
-        if(animationOverrides == null)
-        {
-            Debug.Log("no animation controller");
-        }
+        PlayerTestInput();
         
     }
 
@@ -285,6 +282,30 @@ public class Player : SingletonMonobehaviour<Player>
     {
         // Vector 3 viewport postiion for player((0,0) viewport bottom left, (1,1) viewport top right)
         return mainCamera.WorldToViewportPoint(transform.position);
+
+    }
+
+    public void PlayerTestInput()
+    {
+        // one day forward
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            TimeManager.Instance.TestAdvanceGameDay();
+        }
+
+        // Fast seconds
+        if(Input.GetKey(KeyCode.T))
+        {
+            TimeManager.Instance.TestAdvanceGameTime();
+        }
+
+        // reload scene
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            SceneControllerManager.Instance.FadeAndLoadScene(SceneName.Scene1_Farm.ToString(), transform.position);
+        } 
+
+
 
     }
 

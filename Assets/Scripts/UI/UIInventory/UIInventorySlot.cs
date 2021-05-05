@@ -32,11 +32,24 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         
     }
 
+    private void OnEnable()
+    {
+        EventHandler.AfterSceneLoadedEvent += SceneLoaded;
+        
+    }
+
+    private void OnDisable() 
+    {
+        EventHandler.AfterSceneLoadedEvent -= SceneLoaded;
+    }
+
 
     private void Start() 
     {
-        parentItem = GameObject.FindGameObjectWithTag(Tags.ItemsParentTransform).transform;
+        
         mainCamera = Camera.main;
+
+        
         
         
     }
@@ -248,6 +261,12 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Clear carrying item
         Player.Instance.ClearCarriedItem();
+    }
+
+    public void SceneLoaded()
+    {
+        parentItem = GameObject.FindGameObjectWithTag(Tags.ItemsParentTransform).transform;
+
     }
 
     

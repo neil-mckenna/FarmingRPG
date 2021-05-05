@@ -5,19 +5,22 @@ using Cinemachine;
 
 public class SwitchConfineBoundingShape : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    private void OnEnable() 
     {
-        SwitchBoundingShape();
+        EventHandler.AfterSceneLoadedEvent += SwitchBoundingShape;
+    }
+
+    private void OnDisable() 
+    {
+        EventHandler.AfterSceneLoadedEvent -= SwitchBoundingShape;
         
     }
+
 
     /// <summary>
     ///   Switch the collider that cinemachine uses to define teh edges of the screen
     ///</summary>
-
-
-
     private void SwitchBoundingShape()
     {
         // Get the polygon collider on the 'boundsconfiner' gameobject which is used by cinemachine to prevent teh camera going beyong the screen edges
@@ -30,6 +33,8 @@ public class SwitchConfineBoundingShape : MonoBehaviour
         // since teh confiner bounds have changed need to call this to clear the cache.
         cinemachineConfiner.InvalidatePathCache();
     }
+
+
 
 
 }

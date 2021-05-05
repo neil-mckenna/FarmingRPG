@@ -110,6 +110,52 @@ public static class EventHandler
 
     }
 
+    // Scene Load Events - in the order they happen
+
+    // Before Scene Unloads Fade Out Event
+    public static event Action BeforeSceneUnloadFadeOutEvent;
+
+    public static void CallBeforeSceneUnloadFadeOutEvent()
+    {
+        if(BeforeSceneUnloadFadeOutEvent != null)
+        {
+            BeforeSceneUnloadFadeOutEvent();
+        }
+    }
+
+    // Before Scene Unload Event
+    public static event Action BeforeSceneUnloadEvent;
+
+    public static void CallBeforeSceneUnloadEvent()
+    {
+        if(BeforeSceneUnloadEvent != null)
+        {
+            BeforeSceneUnloadEvent();
+        }
+    }
+
+    // After Scene Loaded Event
+    public static event Action AfterSceneLoadedEvent;
+
+    public static void CallAfterSceneLoadEvent()
+    {
+        if(AfterSceneLoadedEvent != null)
+        {
+            AfterSceneLoadedEvent();
+        }
+    }
+
+    // After Scene Load Fade In Event
+    public static event Action AfterSceneLoadFadeInEvent;
+
+    public static void CallAfterSceneLoadFadeInEvent()
+    {
+        if(AfterSceneLoadFadeInEvent != null)
+        {
+            AfterSceneLoadFadeInEvent();
+        }
+    }
+
 
 
 
