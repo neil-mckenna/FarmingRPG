@@ -8,7 +8,7 @@ public class SceneTeleport : MonoBehaviour
     [SerializeField] private SceneName sceneNameGoTo = SceneName.Scene1_Farm;
     [SerializeField] private Vector3 scenePositionGoTo = new Vector3();
 
-    private void OnTriggerEnter2D(Collider2D collision)      
+    private void OnTriggerStay2D(Collider2D collision)      
     {
         Player player = collision.GetComponent<Player>();
 
