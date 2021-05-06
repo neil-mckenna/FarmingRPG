@@ -125,6 +125,14 @@ public class GridCursor : MonoBehaviour
                     }
                     break;
 
+                case ItemType.Hoeing_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+
                 case ItemType.none:
                     break;
                 case ItemType.count:
@@ -162,6 +170,56 @@ public class GridCursor : MonoBehaviour
         return gridPropertyDetails.canDropItem;
     }
 
+    private bool IsCursorValidForTool(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails)
+    {
+        // switch on tool
+        switch(itemDetails.itemType)
+        {
+            case ItemType.Hoeing_tool:
+                if(gridPropertyDetails.isDiggable == true && gridPropertyDetails.daysSinceLastDug == -1)
+                {
+                    #region Need to get any items at location so we can check if they are reapable
+
+                    // Get World position for cursor
+                    Vector3 cursorWorldPosition = new Vector3(GetWorldPositionForCursor().x + 0.5f,
+                    GetWorldPositionForCursor().y + 0.5f, 0f);
+
+                    // get list of items at cursor location
+                    List<Item> itemList = new List<Item>();
+
+                    HelperMethods.GetComponentsAtBoxLocation<Item>(out itemList, cursorWorldPosition, Settings.cursorSize, 0f);
+                    #endregion
+
+                    // loop through items found to see if any are reapable type - we are not going to let the player dig where there are repable
+                    bool foundReapable = false;
+
+                    foreach(Item item in itemList)
+                    {
+                        if(InventoryManager.Instance.GetItemDetails(item.ItemCode).itemType == ItemType.Reapable_scenery)
+                        {
+                            foundReapable = true;
+                            break;
+                        }
+                    }
+
+                    if(foundReapable)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            default:
+                return false;
+        }
+    }
+
     public void EnableCursor()
     {
         cursorImage.color = new Color(1f, 1f, 1f, 1f);
@@ -192,6 +250,11 @@ public class GridCursor : MonoBehaviour
         Vector3 gridWorldPosition = grid.CellToWorld(gridPosition);
         Vector2 gridScreenPosition = mainCamera.WorldToScreenPoint(gridWorldPosition);
         return RectTransformUtility.PixelAdjustPoint(gridScreenPosition, cursorRectTransform, canvas);
+    }
+
+    public Vector3 GetWorldPositionForCursor()
+    {
+        return grid.CellToWorld(GetGridPositionForCursor());
     }
 
 

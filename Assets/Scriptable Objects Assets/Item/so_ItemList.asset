@@ -71,7 +71,7 @@ MonoBehaviour:
     itemSprite: {fileID: 21300052, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: 'A strong, sturdy basic hoe - great for breaking up soil
       ready for planting '
-    itemUseGridRadius: 0
+    itemUseGridRadius: 1
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
