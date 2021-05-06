@@ -10,7 +10,7 @@ public class ItemDetails
     public string itemDescription;
     public Sprite itemSprite;
     public string itemLongDescription;
-    public short itemsUseGridRadius;
+    public short itemUseGridRadius;
     public float itemUseRadius;
     public bool isStartingItem;
     public bool canBePickedUp;

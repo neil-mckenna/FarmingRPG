@@ -221,7 +221,7 @@ public class GridPropertiesManager : SingletonMonobehaviour<GridPropertiesManage
 
     public void SetGridPropertyDetails(int gridX, int gridY, GridPropertyDetails gridPropertyDetails, Dictionary<string, GridPropertyDetails> gridPropertyDictionary)
     {
-        Debug.Log("SetGridPropertyDetails bottom was called");
+        //Debug.Log("SetGridPropertyDetails bottom was called");
         // construct key from coordinate
         string key = "x" + gridX + "y" + gridY;
 

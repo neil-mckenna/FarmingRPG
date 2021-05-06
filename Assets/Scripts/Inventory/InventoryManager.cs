@@ -206,7 +206,6 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
     {
         ItemDetails itemDetails;
 
-
         if(itemDetailsDictionary.TryGetValue(itemCode, out itemDetails))
         {
             return itemDetails;
@@ -215,10 +214,30 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
         {
             return null;
         }
-
-
     }
 
+    /// <summary>
+    ///    Get the selected item for inventoryLocation - return itemCode or -1 if nothing is selected
+    /// </summary>
+    private int GetSelectedInventoryItem(InventoryLocation inventoryLocation)
+    {
+        return selectedInventoryItem[(int)inventoryLocation];
+    }
+
+    public ItemDetails GetSelectedInventoryItemDetails(InventoryLocation inventoryLocation)
+    {
+        int itemCode = GetSelectedInventoryItem(inventoryLocation);
+
+        if(itemCode == -1)
+        {
+            return null;
+        }
+        else
+        {
+            return GetItemDetails(itemCode);
+        }
+
+    }
     public void SwapInventoryItems(InventoryLocation inventoryLocation, int fromItem, int toItem)
     {
         Debug.Log("called swap");
