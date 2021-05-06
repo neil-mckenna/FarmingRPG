@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e902e143555663ba6906082919962a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 2.5
+  fadeDuration: 1.5
   faderCanvasGroup: {fileID: 842195625}
   faderImage: {fileID: 842195626}
   startingSceneName: 0
@@ -3550,6 +3550,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e991db66c4d562aa16e2f59821d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1836778517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1836778520}
+  - component: {fileID: 1836778519}
+  - component: {fileID: 1836778518}
+  m_Layer: 0
+  m_Name: GridPropertiesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1836778518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836778517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7191132f097c99223b6c89f7eca75d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  so_gridPropertiesArray:
+  - {fileID: 11400000, guid: adb5d57cebc535d25a8383e786060388, type: 2}
+  - {fileID: 11400000, guid: 22d04381e192d7cd1833d25532fa97d8, type: 2}
+  - {fileID: 11400000, guid: de6fdd0760584b2a587c128c4419b065, type: 2}
+--- !u!114 &1836778519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836778517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c50da45de5d41af7a51e78154d89df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gUID: 2e27ac6a-d016-44ba-9993-7f36cc99edd0
+--- !u!4 &1836778520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836778517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1839998687 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -4426376059044555240, guid: 61f1e8ad0328bd9a69bf5bb5e156e785, type: 3}

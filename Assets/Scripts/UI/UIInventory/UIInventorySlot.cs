@@ -66,18 +66,34 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 Input.mousePosition.y,
                 -mainCamera.transform.position.z));
 
-            // create item from prefab at mouseposition
-            GameObject itemGameObject = Instantiate(itemPrefab, worldPos, Quaternion.identity, parentItem);
-            Item item = itemGameObject.GetComponent<Item>();
-            item.ItemCode = itemDetails.itemCode;
 
-            // Remove item from players inventory
-            InventoryManager.Instance.RemoveItem(InventoryLocation.player, item.ItemCode);
+            // if I can drop item here
+            Vector3Int gridPosition = GridPropertiesManager.Instance.grid.WorldToCell(worldPos);
+            GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(gridPosition.x, gridPosition.y);
 
-            if(InventoryManager.Instance.FindItemInInventory(InventoryLocation.player, item.ItemCode) == -1)
+            if(gridPropertyDetails != null && gridPropertyDetails.canDropItem)
             {
-                ClearSelectedItem();
-            } 
+                // create item from prefab at mouseposition
+                GameObject itemGameObject = Instantiate(itemPrefab, new Vector3(worldPos.x, worldPos.y - Settings.gridCellSize /2, worldPos.z), Quaternion.identity, parentItem);
+                Item item = itemGameObject.GetComponent<Item>();
+                item.ItemCode = itemDetails.itemCode;
+
+                // Remove item from players inventory
+                InventoryManager.Instance.RemoveItem(InventoryLocation.player, item.ItemCode);
+
+                if(InventoryManager.Instance.FindItemInInventory(InventoryLocation.player, item.ItemCode) == -1)
+                {
+                    ClearSelectedItem();
+                } 
+
+            }
+            else
+            {
+                
+                
+
+            }
+           
 
         }
     }

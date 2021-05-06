@@ -19,337 +19,47 @@ MonoBehaviour:
   originY: -8
   gridPropertyList:
   - gridCoord:
-      x: -4
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -4
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -4
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -4
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
       x: -3
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -3
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -3
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -3
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -2
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -2
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -2
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -2
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -1
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -1
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -1
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -1
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 0
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 0
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 0
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 0
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: 0
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: 1
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: 2
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: 3
-    gridBoolProperty: 2
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: -4
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
       y: -3
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
-      x: -7
+      x: -3
       y: -2
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
-      x: -7
+      x: -3
       y: -1
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
-      x: -7
-      y: 0
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: 1
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: 2
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: 3
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: 4
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -7
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -6
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -6
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -5
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -5
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -4
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -4
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -3
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: -3
-      y: 5
+      x: -2
+      y: -3
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
       x: -2
-      y: -5
+      y: -2
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
       x: -2
-      y: 5
+      y: -1
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
       x: -1
-      y: -5
+      y: -3
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
       x: -1
-      y: 5
+      y: -2
     gridBoolProperty: 1
     gridBoolValue: 1
   - gridCoord:
-      x: 0
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 0
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 1
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 2
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 3
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 4
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 4
-      y: 5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 5
-      y: -5
-    gridBoolProperty: 1
-    gridBoolValue: 1
-  - gridCoord:
-      x: 5
-      y: 5
+      x: -1
+      y: -1
     gridBoolProperty: 1
     gridBoolValue: 1
