@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : SingletonMonobehaviour<Player>
 {
     public AnimationOverrides animationOverrides;
+    private GridCursor gridCursor;
 
     // Movement Parameters
     private float xInput;
@@ -78,6 +79,11 @@ public class Player : SingletonMonobehaviour<Player>
         
     }
 
+    private void Start() 
+    {
+        gridCursor = FindObjectOfType<GridCursor>();
+    }
+
     private void Update() 
     {
         #region Player Input
@@ -91,6 +97,10 @@ public class Player : SingletonMonobehaviour<Player>
 
             PlayerWalkInput();
 
+            PlayerClickInput();
+
+            PlayerTestInput();
+
             EventHandler.CallMovementEvent(xInput, yInput, isWalking, isRunning, isIdle, 
                 isCarrying, toolEffect, isUsingToolRight, isUsingToolLeft, isUsingToolUp, isUsingToolDown,
                 isLiftingToolRight, isLiftingToolLeft, isLiftingToolUp, isLiftingToolDown,
@@ -101,7 +111,7 @@ public class Player : SingletonMonobehaviour<Player>
         }
         #endregion
 
-        PlayerTestInput();
+        
         
     }
 
@@ -276,15 +286,82 @@ public class Player : SingletonMonobehaviour<Player>
         PlayerInputIsDisabled = true;
     }
 
+    public void PlayerClickInput()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            if(gridCursor.CursorIsEnabled)
+            {
+                ProcessPlayerClickInput();
+            }
+        }
 
+    }
+
+    public void ProcessPlayerClickInput()
+    {
+        ResetMovement();
+
+        // Get Selected item details
+        ItemDetails itemDetails = InventoryManager.Instance.GetSelectedInventoryItemDetails(InventoryLocation.player);
+
+        if(itemDetails != null)
+        {
+            switch(itemDetails.itemType)
+            {
+                case ItemType.Seed:
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        ProcessPlayerClickInputSeed(itemDetails);
+                    }
+                    break; 
+
+                case ItemType.Commodity:
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        ProcessPlayerClickInputCommodity(itemDetails);
+                    }
+                    break;
+
+                case ItemType.none:
+                    break;
+                
+                case ItemType.count:
+                    break;
+                
+                default:
+                    break;
+
+            }
+        }
+    }
+
+    private void ProcessPlayerClickInputSeed(ItemDetails itemDetails)
+    {
+        if(itemDetails.canBeDropped && gridCursor.CursorPositionIsValid)
+        {
+            EventHandler.CallDropSelectedItemEvent();
+        }
+    }
+
+    private void ProcessPlayerClickInputCommodity(ItemDetails itemDetails)
+    {
+        if(itemDetails.canBeDropped && gridCursor.CursorPositionIsValid)
+        {
+            EventHandler.CallDropSelectedItemEvent();
+        }
+    }
 
     public Vector3 GetPlayerViewportPosition()
     {
         // Vector 3 viewport postiion for player((0,0) viewport bottom left, (1,1) viewport top right)
         return mainCamera.WorldToViewportPoint(transform.position);
-
     }
 
+    // TODO REMOVE 
+    ///
+    /// test time and clock changes
+    ///
     public void PlayerTestInput()
     {
         // one day forward

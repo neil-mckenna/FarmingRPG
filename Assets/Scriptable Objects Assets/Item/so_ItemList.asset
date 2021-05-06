@@ -58,7 +58,7 @@ MonoBehaviour:
     itemSprite: {fileID: 21300136, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: The humble watering can - an essential tool for a budding
       farmer
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
@@ -71,7 +71,7 @@ MonoBehaviour:
     itemSprite: {fileID: 21300052, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: 'A strong, sturdy basic hoe - great for breaking up soil
       ready for planting '
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
     itemDescription: A Basic Axe
     itemSprite: {fileID: 21300010, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A sharp, sturdy basic axe - great for chopping down trees
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
     itemDescription: Wicker Basket
     itemSprite: {fileID: 21300504, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A wicker basket for harvesting produce you have grown
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
@@ -180,7 +180,7 @@ MonoBehaviour:
     itemDescription: A Basic Pickaxe
     itemSprite: {fileID: 21300094, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A strong, strudy basic pickaxe - great for breaking rocks
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 1
     canBePickedUp: 1
@@ -228,7 +228,7 @@ MonoBehaviour:
     itemDescription: A Basic Scythe for Reaping
     itemSprite: {fileID: 21300506, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A sharp, basic scythe - great for cutting grass
-    itemUseGridRadius: 3
+    itemUseGridRadius: 0
     itemUseRadius: 1.5
     isStartingItem: 1
     canBePickedUp: 1
