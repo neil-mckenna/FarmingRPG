@@ -225,8 +225,7 @@ public class GridCursor : MonoBehaviour
                 {
                     return false;
                 }
-                break;
-
+                
             case ItemType.Watering_tool:
                 if(gridPropertyDetails.daysSinceLastDug > -1 && gridPropertyDetails.daysSinceWatered == -1)
                 {
@@ -235,8 +234,7 @@ public class GridCursor : MonoBehaviour
                 else
                 {
                     return false;
-                }
-                break; 
+                } 
 
             default:
                 return false;
