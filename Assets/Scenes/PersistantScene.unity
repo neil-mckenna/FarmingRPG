@@ -577,7 +577,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191326297}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19b653016cf537e6d91d804c304141fc, type: 3}
   m_Name: 
@@ -4555,6 +4555,10 @@ MonoBehaviour:
   animationOverrides: {fileID: 0}
   characterAttributeCustomList: []
   equippedItemSpriteRenderer: {fileID: 736401305}
+  toolCharacterAttribute:
+    characterPart: 0
+    partVariantColour: 0
+    partVariantType: 0
 --- !u!1001 &4356528489001799544
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -424,7 +424,7 @@ public class GridPropertiesManager : SingletonMonobehaviour<GridPropertiesManage
 
     public void SetGridPropertyDetails(int gridX, int gridY, GridPropertyDetails gridPropertyDetails)
     {
-        Debug.Log("SetGridPropertyDetails  top was called");
+        //Debug.Log("SetGridPropertyDetails  top was called");
         SetGridPropertyDetails(gridX, gridY, gridPropertyDetails, gridPropertyDictionary);
     }
 

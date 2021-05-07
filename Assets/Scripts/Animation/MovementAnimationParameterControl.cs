@@ -44,15 +44,15 @@ public class MovementAnimationParameterControl : MonoBehaviour
         if(isUsingToolUp){ animator.SetTrigger(Settings.isUsingToolUp); }
         if(isUsingToolDown){ animator.SetTrigger(Settings.isUsingToolDown); }
 
-        if(isLiftingToolRight){ animator.SetTrigger(Settings.isUsingToolRight); }
-        if(isLiftingToolLeft){ animator.SetTrigger(Settings.isUsingToolLeft); }
-        if(isLiftingToolUp){ animator.SetTrigger(Settings.isUsingToolUp); }
-        if(isLiftingToolDown){ animator.SetTrigger(Settings.isUsingToolDown); }
+        if(isLiftingToolRight){ animator.SetTrigger(Settings.isLiftingToolRight); }
+        if(isLiftingToolLeft){ animator.SetTrigger(Settings.isLiftingToolLeft); }
+        if(isLiftingToolUp){ animator.SetTrigger(Settings.isLiftingToolUp); }
+        if(isLiftingToolDown){ animator.SetTrigger(Settings.isLiftingToolDown); }
 
-        if(isUsingToolRight){ animator.SetTrigger(Settings.isUsingToolRight); }
-        if(isUsingToolRight){ animator.SetTrigger(Settings.isUsingToolRight); }
-        if(isUsingToolRight){ animator.SetTrigger(Settings.isUsingToolRight); }
-        if(isUsingToolRight){ animator.SetTrigger(Settings.isUsingToolRight); }
+        // if(HoldingToolRight){ animator.SetTrigger(Settings.HoldingToolRight); }
+        // if(HoldingToolLeft){ animator.SetTrigger(Settings.HoldingToolLeft); }
+        // if(HoldingToolUp){ animator.SetTrigger(Settings.HoldingToolUp); }
+        // if(HoldingToolDown){ animator.SetTrigger(Settings.HoldingToolDown); }
 
         if(isSwingingToolRight){ animator.SetTrigger(Settings.isSwingingToolRight); }
         if(isSwingingToolLeft){ animator.SetTrigger(Settings.isSwingingToolLeft); }

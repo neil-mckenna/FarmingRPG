@@ -118,7 +118,7 @@ public class GridCursor : MonoBehaviour
                     break;
                 
                 case ItemType.Commodity:
-                    if(!IsCursorValidForSeed(gridPropertyDetails))
+                    if(!IsCursorValidForCommodity(gridPropertyDetails))
                     {
                         SetCursorToInvalid();
                         return;
@@ -133,10 +133,20 @@ public class GridCursor : MonoBehaviour
                     }
                     break;
 
+                case ItemType.Watering_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+
                 case ItemType.none:
                     break;
+
                 case ItemType.count:
                     break;
+
                 default:
                     break;
             }
@@ -215,6 +225,19 @@ public class GridCursor : MonoBehaviour
                 {
                     return false;
                 }
+                break;
+
+            case ItemType.Watering_tool:
+                if(gridPropertyDetails.daysSinceLastDug > -1 && gridPropertyDetails.daysSinceWatered == -1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                break; 
+
             default:
                 return false;
         }

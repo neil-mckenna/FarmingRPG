@@ -76,9 +76,6 @@ public enum GridBoolProperty
 
 }
 
-
-
-
 public enum InventoryLocation
 {
     player,

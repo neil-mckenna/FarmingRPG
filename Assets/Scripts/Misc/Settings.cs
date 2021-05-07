@@ -17,7 +17,9 @@ public static class Settings
     public const float runningSpeed = 5.333f;
     public const float walkingSpeed = 2.666f;
     public static float useToolAnimationPause = 0.25f;
+    public static float liftToolAnimationPause = 0.4f;
     public static float afterUseToolAnimationPause = 0.2f;
+    public static float afterLiftToolAnimationPause = 0.4f;
 
 
     // Inventory
@@ -43,6 +45,10 @@ public static class Settings
     public static int isSwingingToolLeft;
     public static int isSwingingToolUp;
     public static int isSwingingToolDown;
+    public static int HoldingToolRight;
+    public static int HoldingToolLeft;
+    public static int HoldingToolUp;
+    public static int HoldingToolDown;
     public static int isPickingRight;
     public static int isPickingLeft;
     public static int isPickingUp;

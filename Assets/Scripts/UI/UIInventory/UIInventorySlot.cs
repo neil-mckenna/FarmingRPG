@@ -253,7 +253,7 @@ public class UIInventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         gridCursor.ItemUseGridRadius = itemDetails.itemUseGridRadius;
         
         // if item require a grid cursor then enable it
-        Debug.LogWarning("use radius " + itemDetails.itemUseGridRadius);
+        //Debug.LogWarning("use radius " + itemDetails.itemUseGridRadius);
         if(itemDetails.itemUseGridRadius > 0)
         {
             gridCursor.EnableCursor();

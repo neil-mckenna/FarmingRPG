@@ -35,10 +35,12 @@ public class Player : SingletonMonobehaviour<Player>
     private bool isPickingDown;
     private ToolEffect toolEffect = ToolEffect.none;
 
-    // Coroutine time
+    // Animation Coroutine time
     private bool playerToolUseDisabled = false;
     private WaitForSeconds afterUseToolAnimationPause;
     private WaitForSeconds useToolAnimationPause;
+    private WaitForSeconds liftToolAnimationPause;
+    private WaitForSeconds afterLiftToolAnimationPause;
 
     // To retrive player position in 2D space 
     private Camera mainCamera;
@@ -57,7 +59,7 @@ public class Player : SingletonMonobehaviour<Player>
 
     // Player attributes that can be swapped
     private CharacterAttribute armsCharacterAttribute;
-    private CharacterAttribute toolCharacterAttribute;
+    public CharacterAttribute toolCharacterAttribute;
 
     private bool _playerInputIsDisabled = false;
 
@@ -91,6 +93,8 @@ public class Player : SingletonMonobehaviour<Player>
         gridCursor = FindObjectOfType<GridCursor>();
         afterUseToolAnimationPause = new WaitForSeconds(Settings.afterUseToolAnimationPause);
         useToolAnimationPause = new WaitForSeconds(Settings.useToolAnimationPause);
+        liftToolAnimationPause = new WaitForSeconds(Settings.liftToolAnimationPause);
+        afterLiftToolAnimationPause = new WaitForSeconds(Settings.afterLiftToolAnimationPause);
     }
 
     private void Update() 
@@ -116,6 +120,8 @@ public class Player : SingletonMonobehaviour<Player>
                 isPickingRight,  isPickingLeft, isPickingUp, isPickingDown,
                 isSwingingToolRight, isSwingingToolLeft, isSwingingToolUp, isSwingingToolDown,
                 false, false, false, false);
+
+            
 
         }
         #endregion
@@ -328,9 +334,6 @@ public class Player : SingletonMonobehaviour<Player>
         // Get Grid property details at cursor position ( the GridCursor validation routine ensure that tha grid property are not null)
         GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(cursorGridPosition.x, cursorGridPosition.y);
 
-
-
-
         // Get Selected item details
         ItemDetails itemDetails = InventoryManager.Instance.GetSelectedInventoryItemDetails(InventoryLocation.player);
 
@@ -353,6 +356,10 @@ public class Player : SingletonMonobehaviour<Player>
                     break;
 
                 case ItemType.Hoeing_tool:
+                    ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
+                    break;
+                
+                case ItemType.Watering_tool:
                     ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
                     break;
 
@@ -396,6 +403,13 @@ public class Player : SingletonMonobehaviour<Player>
                     HoeGroundAtCursor(gridPropertyDetails, playerDirection);
                 }
                 break;
+
+            case ItemType.Watering_tool:
+                if(gridCursor.CursorPositionIsValid)
+                {
+                    WaterGroundAtCursor(gridPropertyDetails, playerDirection);
+                }
+                break;
             
             default:
                 break;
@@ -436,6 +450,7 @@ public class Player : SingletonMonobehaviour<Player>
             isUsingToolDown = true;
         }
 
+
         // slight pause
         yield return useToolAnimationPause;
 
@@ -457,6 +472,64 @@ public class Player : SingletonMonobehaviour<Player>
         // allow player control back && reset the tool usage
         PlayerInputIsDisabled = false;
         playerToolUseDisabled = false;
+
+    }
+
+    private void WaterGroundAtCursor(GridPropertyDetails gridPropertyDetails, Vector3Int playerDirection)
+    {
+        // trigger animation
+        StartCoroutine(WaterGroundAtCursorRoutine(playerDirection, gridPropertyDetails));
+    }
+
+    private IEnumerator WaterGroundAtCursorRoutine(Vector3Int playerDirection, GridPropertyDetails gridPropertyDetails)
+    {
+        PlayerInputIsDisabled = true;
+        playerToolUseDisabled = true;
+
+        // Set tool animation to watering can in override aniamtion
+        toolCharacterAttribute.partVariantType = PartVariantType.wateringCan;
+        characterAttributeCustomList.Clear();
+        characterAttributeCustomList.Add(toolCharacterAttribute);
+        animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomList);
+
+        // TODO if there is water in teh watering can
+        toolEffect = ToolEffect.watering;
+
+        if(playerDirection == Vector3Int.right)
+        {
+            isLiftingToolRight = true;
+        }
+        else if (playerDirection == Vector3Int.left)
+        {
+            isLiftingToolLeft = true;
+        }
+        else if (playerDirection == Vector3Int.up)
+        {
+            isLiftingToolUp = true;
+        }
+        else if (playerDirection == Vector3Int.down)
+        {
+            isLiftingToolDown = true;
+        }
+
+        yield return liftToolAnimationPause;
+
+        // Set Grid Property details for watering ground
+        if(gridPropertyDetails.daysSinceWatered == -1)
+        {
+            gridPropertyDetails.daysSinceWatered = 0;
+        }
+
+        // Set Grid property to watered
+        GridPropertiesManager.Instance.SetGridPropertyDetails(gridPropertyDetails.gridX, gridPropertyDetails.gridY, gridPropertyDetails);
+
+        // After animation pause
+        yield return afterLiftToolAnimationPause;
+
+        // Allow player input
+        PlayerInputIsDisabled = false;
+        playerToolUseDisabled = false;
+
 
     }
 
