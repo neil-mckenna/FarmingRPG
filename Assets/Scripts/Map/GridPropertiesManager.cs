@@ -344,12 +344,12 @@ public class GridPropertiesManager : SingletonMonobehaviour<GridPropertiesManage
             return wateredGround[6];
         }
         // up down left
-        else if(!upWatered && downWatered && !rightWatered && !leftWatered)
+        else if(upWatered && downWatered && !rightWatered && leftWatered)
         {
             return wateredGround[7];
         }
         // up down
-        else if(!upWatered && downWatered && !rightWatered && !leftWatered)
+        else if(upWatered && downWatered && !rightWatered && !leftWatered)
         {
             return wateredGround[8];
         }

@@ -14,6 +14,9 @@ public class GridCursor : MonoBehaviour
     [SerializeField] private Sprite greenCursorSprite = null;
     [SerializeField] private Sprite redCursorSprite = null;
 
+    private bool _cursorIsEnabled = false;
+    public bool CursorIsEnabled { get => _cursorIsEnabled; set => _cursorIsEnabled = value; }
+
     private bool _cursorPositionIsValid = false;
     public bool CursorPositionIsValid { get => _cursorPositionIsValid; set => _cursorPositionIsValid = value; }
 
@@ -23,8 +26,7 @@ public class GridCursor : MonoBehaviour
     private ItemType _selectedItemType;
     public ItemType SelectedItemType { get => _selectedItemType; set => _selectedItemType = value; }
 
-    private bool _cursorIsEnabled = true;
-    public bool CursorIsEnabled { get => _cursorIsEnabled; set => _cursorIsEnabled = value; }
+    
 
     private void OnEnable() 
     {
@@ -125,6 +127,30 @@ public class GridCursor : MonoBehaviour
                     }
                     break;
 
+                case ItemType.Watering_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+                
+                case ItemType.Breaking_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+                
+                case ItemType.Chopping_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+
                 case ItemType.Hoeing_tool:
                     if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
                     {
@@ -133,7 +159,15 @@ public class GridCursor : MonoBehaviour
                     }
                     break;
 
-                case ItemType.Watering_tool:
+                case ItemType.Reaping_tool:
+                    if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
+                
+                case ItemType.Collecting_tool:
                     if(!IsCursorValidForTool(gridPropertyDetails, itemDetails))
                     {
                         SetCursorToInvalid();

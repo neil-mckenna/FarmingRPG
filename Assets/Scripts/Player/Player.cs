@@ -585,8 +585,11 @@ public class Player : SingletonMonobehaviour<Player>
         {
             return Vector3Int.down;
         }
+    }
 
-
+    public Vector3 GetPlayerCenterPosition()
+    {
+        return new Vector3(transform.position.x, transform.position.y + Settings.playerCenterYOffset, transform.position.z);
     }
 
 

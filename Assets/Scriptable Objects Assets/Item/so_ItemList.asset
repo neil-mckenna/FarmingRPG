@@ -83,8 +83,8 @@ MonoBehaviour:
     itemDescription: A Basic Axe
     itemSprite: {fileID: 21300010, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A sharp, sturdy basic axe - great for chopping down trees
-    itemUseGridRadius: 0
-    itemUseRadius: 0
+    itemUseGridRadius: 1
+    itemUseRadius: 1
     isStartingItem: 1
     canBePickedUp: 1
     canBeDropped: 0
@@ -168,8 +168,8 @@ MonoBehaviour:
     itemDescription: Wicker Basket
     itemSprite: {fileID: 21300504, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A wicker basket for harvesting produce you have grown
-    itemUseGridRadius: 0
-    itemUseRadius: 0
+    itemUseGridRadius: 1
+    itemUseRadius: 1
     isStartingItem: 1
     canBePickedUp: 1
     canBeDropped: 0
@@ -180,8 +180,8 @@ MonoBehaviour:
     itemDescription: A Basic Pickaxe
     itemSprite: {fileID: 21300094, guid: 853ac38383c680342ac7e688bf29b197, type: 3}
     itemLongDescription: A strong, strudy basic pickaxe - great for breaking rocks
-    itemUseGridRadius: 0
-    itemUseRadius: 0
+    itemUseGridRadius: 1
+    itemUseRadius: 1
     isStartingItem: 1
     canBePickedUp: 1
     canBeDropped: 0
