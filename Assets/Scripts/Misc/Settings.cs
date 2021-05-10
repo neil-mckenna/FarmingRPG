@@ -72,6 +72,11 @@ public static class Settings
     public const string WateringTool = "Watering Can";
     public const string CollectingTool = "Basket";
 
+    // Reaping
+    public const int maxCollidersToTestReapSwing = 15;
+    public const int maxTargetComponentsToDestroyReapSwing = 2;
+
+
     // Time System
     public const float secondsPerGameSecond = 0.012f;
 
@@ -100,7 +105,7 @@ public static class Settings
         isLiftingToolUp = Animator.StringToHash("isLiftingToolUp");
         isLiftingToolDown = Animator.StringToHash("isLiftingToolDown");
 
-        isSwingingToolRight = Animator.StringToHash("isSwiningToolRight");
+        isSwingingToolRight = Animator.StringToHash("isSwingingToolRight");
         isSwingingToolLeft = Animator.StringToHash("isSwingingToolLeft");
         isSwingingToolUp = Animator.StringToHash("isSwingingToolUp");
         isSwingingToolDown = Animator.StringToHash("isSwingingToolDown");

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : SingletonMonobehaviour<Player>
 {   
     
-
-
     public AnimationOverrides animationOverrides;
     private GridCursor gridCursor;
+    private Cursor cursor;
+
 
     // Movement Parameters
     private float xInput;
@@ -69,6 +69,20 @@ public class Player : SingletonMonobehaviour<Player>
         set => _playerInputIsDisabled = value;
     }
 
+    private void OnEnable() 
+    {
+        EventHandler.BeforeSceneUnloadFadeOutEvent += DisablePlayerInputAndResetMovement;
+        EventHandler.AfterSceneLoadFadeInEvent += EnablePlayerInput;
+        
+    }
+
+    private void OnDisable() 
+    {
+        EventHandler.BeforeSceneUnloadFadeOutEvent -= DisablePlayerInputAndResetMovement;
+        EventHandler.AfterSceneLoadFadeInEvent -= EnablePlayerInput;
+        
+    }
+
     protected override void Awake() 
     {
         base.Awake();
@@ -82,6 +96,7 @@ public class Player : SingletonMonobehaviour<Player>
 
         // Initialise swappable character attributes
         armsCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.arms, PartVariantColour.none, PartVariantType.none);
+        toolCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.arms, PartVariantColour.none, PartVariantType.none);
 
         // reference the camera
         mainCamera = Camera.main;
@@ -95,6 +110,7 @@ public class Player : SingletonMonobehaviour<Player>
         useToolAnimationPause = new WaitForSeconds(Settings.useToolAnimationPause);
         liftToolAnimationPause = new WaitForSeconds(Settings.liftToolAnimationPause);
         afterLiftToolAnimationPause = new WaitForSeconds(Settings.afterLiftToolAnimationPause);
+        cursor = FindObjectOfType<Cursor>();
     }
 
     private void Update() 
@@ -308,7 +324,7 @@ public class Player : SingletonMonobehaviour<Player>
             if(Input.GetMouseButton(0))
             {
                 
-                if(gridCursor.CursorIsEnabled)
+                if(gridCursor.CursorIsEnabled || cursor.CursorIsEnabled)
                 {
                     // Get Cursor Grid Position
                     Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
@@ -359,6 +375,10 @@ public class Player : SingletonMonobehaviour<Player>
                     ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
                     break;
                 
+                case ItemType.Reaping_tool:
+                    ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
+                    break;
+                
                 case ItemType.Watering_tool:
                     ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
                     break;
@@ -401,6 +421,15 @@ public class Player : SingletonMonobehaviour<Player>
                 if(gridCursor.CursorPositionIsValid)
                 {
                     HoeGroundAtCursor(gridPropertyDetails, playerDirection);
+                }
+                break;
+            
+            case ItemType.Reaping_tool:
+                if(cursor.CursorPositionIsValid)
+                {
+                    playerDirection = GetPlayerDirection(cursor.GetWorldPositionForCursor(), GetPlayerCenterPosition());
+                    ReapInPlayerDirectionAtCursor(itemDetails, playerDirection);
+                    
                 }
                 break;
 
@@ -585,6 +614,136 @@ public class Player : SingletonMonobehaviour<Player>
         {
             return Vector3Int.down;
         }
+    }
+
+    private Vector3Int GetPlayerDirection(Vector3 cursorPosition, Vector3 playerPosition)
+    {
+        if (
+            cursorPosition.x > playerPosition.x
+            &&
+            cursorPosition.y < (playerPosition.y + cursor.ItemUseRadius / 2f)
+            &&
+            cursorPosition.y > (playerPosition.y - cursor.ItemUseRadius / 2f)
+            
+        )
+        {
+            return Vector3Int.right;
+        }
+        else if(
+            cursorPosition.x < playerPosition.x
+            &&
+            cursorPosition.y < (playerPosition.y + cursor.ItemUseRadius / 2f)
+            &&
+            cursorPosition.y > (playerPosition.y - cursor.ItemUseRadius / 2f)
+        )
+        {
+            return Vector3Int.left;
+        }
+        else if (cursorPosition.y > playerPosition.y)
+        {
+            return Vector3Int.up;
+        }
+        else
+        {
+            return Vector3Int.down;
+        }
+    }
+
+    private void ReapInPlayerDirectionAtCursor(ItemDetails itemDetails, Vector3Int playerDirection)
+    {
+        StartCoroutine(ReapInPlayerDirectionAtCursorRoutine(itemDetails, playerDirection));
+    }
+
+    private IEnumerator ReapInPlayerDirectionAtCursorRoutine(ItemDetails itemDetails, Vector3Int playerDirection)
+    {
+        PlayerInputIsDisabled = true;
+        playerToolUseDisabled = true;
+
+        // Set tool animation to scythe in animation override
+        toolCharacterAttribute.partVariantType = PartVariantType.scythe;
+        characterAttributeCustomList.Clear();
+        characterAttributeCustomList.Add(toolCharacterAttribute);
+        animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomList);
+
+        // Reap in player direction
+        UseToolInPlayerDirection(itemDetails, playerDirection);
+
+        // animation pause
+        yield return useToolAnimationPause;
+
+        // return cplayer controls
+        PlayerInputIsDisabled = false;
+        playerToolUseDisabled = false;
+
+    }
+
+    private void UseToolInPlayerDirection(ItemDetails equippedItemDetails, Vector3Int playerDirection)
+    {
+        if(Input.GetMouseButton(0))
+        {
+            switch(equippedItemDetails.itemType)
+            {
+                case ItemType.Reaping_tool:
+                    if(playerDirection == Vector3Int.right)
+                    {
+                        isSwingingToolRight = true;
+                    }
+                    else if(playerDirection == Vector3Int.left)
+                    {
+                        isSwingingToolLeft = true;
+                    }
+                    else if(playerDirection == Vector3Int.up)
+                    {
+                        isSwingingToolUp = true;
+                    }
+                    else if(playerDirection == Vector3Int.down)
+                    {
+                        isSwingingToolDown = true;
+                    }
+                    break;
+
+            }
+
+            // Define center point of square used for collision testing
+            Vector2 point = new Vector2(
+                GetPlayerCenterPosition().x + (playerDirection.x * (equippedItemDetails.itemUseRadius / 2f)),
+                GetPlayerCenterPosition().y + (playerDirection.y * (equippedItemDetails.itemUseRadius / 2f)));
+
+
+            // Define size of teh square which will be used for collision testing
+            Vector2 size = new Vector2(equippedItemDetails.itemUseRadius, equippedItemDetails.itemUseRadius);
+
+            // Get Item componenets with 2D collider located in teh house at the center point defined ( 2d colliders tested limited to maxCollidersTo Test Perreap swing)
+            Item[] itemArray = HelperMethods.GetComponentsAtBoxLocationNonAlloc<Item>(Settings.maxCollidersToTestReapSwing, point, size, 0f);
+
+            int reapableItemCount = 0;
+
+            // Loop through all items retrieved 
+            for(int i = itemArray.Length - 1; i >= 0; i--)
+            {
+                if(itemArray[i] != null)
+                {
+                    // Destroy item game object if reapable
+                    if(InventoryManager.Instance.GetItemDetails(itemArray[i].ItemCode).itemType == ItemType.Reapable_scenery)
+                    {
+                        // Effect position
+                        Vector3 effectPosition = new Vector3(
+                            itemArray[i].transform.position.x,
+                            itemArray[i].transform.position.y + Settings.gridCellSize / 2f,
+                            itemArray[i].transform.position.z);
+
+                        Destroy(itemArray[i].gameObject);
+
+                        reapableItemCount++;
+                        if(reapableItemCount >= Settings.maxTargetComponentsToDestroyReapSwing)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public Vector3 GetPlayerCenterPosition()

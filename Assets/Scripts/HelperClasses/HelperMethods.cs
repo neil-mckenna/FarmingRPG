@@ -46,9 +46,9 @@ public static class HelperMethods
     ///<summary>
     /// Returns and array of components of type T at box with center point and size and angle. the numberOfColliderToTest for is passed as a parameter. Found compinenetsare return in teh array
     ///</summary>
-    public static T[] GetComponentsAtBoxLocationNonAlloc<T>(int numberOfColliderToTest, Vector2 point, Vector2 size, float angle)
+    public static T[] GetComponentsAtBoxLocationNonAlloc<T>(int numberOfCollidersToTest, Vector2 point, Vector2 size, float angle)
     {
-        Collider2D[] collider2DArray = new Collider2D[numberOfColliderToTest];
+        Collider2D[] collider2DArray = new Collider2D[numberOfCollidersToTest];
 
         Physics2D.OverlapBoxNonAlloc(point, size, angle, collider2DArray);
         
@@ -56,7 +56,7 @@ public static class HelperMethods
 
         T[] componentArray = new T[collider2DArray.Length];
 
-        for(int i = collider2DArray.Length; i >= 0; i--)
+        for(int i = collider2DArray.Length - 1; i >= 0; i--)
         {
             if(collider2DArray[i] != null)
             {
