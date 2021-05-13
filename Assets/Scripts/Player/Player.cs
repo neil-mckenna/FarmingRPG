@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : SingletonMonobehaviour<Player>
 {   
+    // TODO REMOVE
+    public GameObject canyonOakTreePrefab;
     
+    //
     public AnimationOverrides animationOverrides;
     private GridCursor gridCursor;
     private Cursor cursor;
@@ -593,7 +596,19 @@ public class Player : SingletonMonobehaviour<Player>
         if(Input.GetKeyDown(KeyCode.L))
         {
             SceneControllerManager.Instance.FadeAndLoadScene(SceneName.Scene1_Farm.ToString(), transform.position);
-        } 
+        }
+
+        if(Input.GetMouseButton(1))
+        {
+            GameObject tree = PoolManager.Instance.ReuseObject(canyonOakTreePrefab, mainCamera.ScreenToWorldPoint(new Vector3(
+                Input.mousePosition.x,
+                Input.mousePosition.y,
+                -mainCamera.transform.position.z)),
+                Quaternion.identity);
+
+            tree.SetActive(true);
+        }
+
     }
 
     private Vector3Int GetPlayerClickDirection(Vector3Int cursorGridPosition, Vector3Int playerGridPosition)
